@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "f93b1ea4-57e8-4442-bb72-9106128b0609",
     "name": "Mythos Sandbox API 🏛️",
-    "description": "Интерактивная песочница для работы с мифологией Древней Греции.\n\n**Base URL:** [https://api.qasandbox.org](https://api.qasandbox.org)\n\n---\n\n- **Обучение:** Освоить работу всех методов песочницы в Postman можно [на этом курсе](https://stepik.org/a/269008).\n    \n- **Postman:** [<b>📥 Скачать JSON для импорта в Postman</b>](https://api.qasandbox.ru/swagger.json)\n    \n\n---\n\n### 🛠 Особенности реализации:\n\n- **Auth:** Методы изменения (**POST**, **PUT**, **PATCH**, **DELETE**) требуют JWT-токен в заголовке `Authorization`.\n    \n- **System Lock:** Персонажи с **ID 1–31** защищены. При попытке изменения сервер вернет ошибку `403 Forbidden`.\n    \n- **Data Mapping:** В API используется поле `desc`.\n    \n    - В базе данных оно хранится как `description`.\n        \n- **Localization (EN):** В параметрах и поле `category` используются английские значения:  \n    `gods`, `heroes`, `creatures`.",
+    "description": "**An interactive sandbox for exploring Ancient Greek mythology.**\n\n**Base URL:** [https://api.qasandbox.org](https://api.qasandbox.org)\n\n---\n\n- **Postman:** [<b>📥 Скачать JSON для импорта в Postman</b>](https://api.qasandbox.ru/swagger.json)\n    \n\n---\n\n### 🛠 Implementation:\n\n- **Auth:** Change methods (**POST**, **PUT**, **PATCH**, **DELETE**) require JWT-token in `Authorization` header.\n    \n- **System Lock:** Entities with **ID 1–31** are protected. Attempted changes return `403 Forbidden`.\n    \n- **Data Mapping:** In API, `desc` field.\n    \n    - In databases it is saved as `description`.\n        \n- **Localization (EN):** `category` uses English as:  \n    `gods`, `heroes`, `creatures`.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "55827699",
     "_collection_link": "https://go.postman.co/collection/55827699-f93b1ea4-57e8-4442-bb72-9106128b0609?source=collection_link"
@@ -12,7 +12,7 @@
       "name": "register",
       "item": [
         {
-          "name": "Регистрация нового пользователя",
+          "name": "New user registration",
           "request": {
             "method": "POST",
             "header": [
@@ -47,7 +47,7 @@
           },
           "response": [
             {
-              "name": "Успешно",
+              "name": "201 Created",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -93,7 +93,7 @@
               "body": "{\n  \"message\": \"Регистрация успешна\"\n}"
             },
             {
-              "name": "Ошибка (дубликат или пустые поля)",
+              "name": "400:  Empty values",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -108,7 +108,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"username\": \"hercules_77\",\n  \"password\": \"secure_pass\"\n}",
+                  "raw": "{\n  \"username\": \"\",\n  \"password\": \"secure_pass\"\n}",
                   "options": {
                     "raw": {
                       "headerFamily": "json",
@@ -146,7 +146,7 @@
       "name": "login",
       "item": [
         {
-          "name": "Вход и получение токена",
+          "name": "Login and token",
           "request": {
             "method": "POST",
             "header": [
@@ -181,7 +181,7 @@
           },
           "response": [
             {
-              "name": "Успешный вход",
+              "name": "200 OK log in successful",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -227,7 +227,7 @@
               "body": "{\n  \"token\": \"{{supabase_service_role_api_key_06qg}}...\"\n}"
             },
             {
-              "name": "Неверные данные",
+              "name": "401 incorrect login and/or password",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -283,7 +283,7 @@
           "name": "{id}",
           "item": [
             {
-              "name": "Получить одну сущность по ID",
+              "name": "200 OK Find an entity using ID",
               "protocolProfileBehavior": {
                 "disableBodyPruning": true
               },
@@ -305,23 +305,19 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api.qasandbox.ru/api/mythology/8",
-                  "protocol": "https",
+                  "raw": "{{baseUrl}}/mythology/4",
                   "host": [
-                    "api",
-                    "qasandbox",
-                    "ru"
+                    "{{baseUrl}}"
                   ],
                   "path": [
-                    "api",
                     "mythology",
-                    "8"
+                    "4"
                   ]
                 }
               },
               "response": [
                 {
-                  "name": "Объект сущности",
+                  "name": "Find entity",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -342,7 +338,7 @@
                       "variable": [
                         {
                           "key": "id",
-                          "value": "9710",
+                          "value": "9",
                           "description": "ID персонажа"
                         }
                       ]
@@ -361,7 +357,7 @@
                   "body": "{\n  \"name\": \"Посейдон\",\n  \"category\": \"gods\",\n  \"desc\": \"Бог морей и землетрясений.\",\n  \"id\": 42,\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}"
                 },
                 {
-                  "name": "Не найдено",
+                  "name": "404 Not found",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -403,7 +399,7 @@
               ]
             },
             {
-              "name": "Полное обновление сущности",
+              "name": "Full update of an entity",
               "request": {
                 "auth": {
                   "type": "bearer",
@@ -448,7 +444,7 @@
                   "variable": [
                     {
                       "key": "id",
-                      "value": "9710",
+                      "value": "9853",
                       "description": "ID персонажа"
                     }
                   ]
@@ -456,7 +452,7 @@
               },
               "response": [
                 {
-                  "name": "Успешно обновлено",
+                  "name": "200 Update successful",
                   "originalRequest": {
                     "method": "PUT",
                     "header": [
@@ -465,9 +461,9 @@
                         "value": "application/json"
                       },
                       {
-                        "description": "Added as a part of security scheme: bearer",
                         "key": "Authorization",
-                        "value": "Bearer <token>"
+                        "value": "Bearer <token>",
+                        "description": "Added as a part of security scheme: bearer"
                       }
                     ],
                     "body": {
@@ -492,7 +488,7 @@
                       "variable": [
                         {
                           "key": "id",
-                          "value": "9710",
+                          "value": "42",
                           "description": "ID персонажа"
                         }
                       ]
@@ -506,7 +502,7 @@
                   "body": ""
                 },
                 {
-                  "name": "Ошибка (не все поля переданы)",
+                  "name": "400 Bad request (incomplete)",
                   "originalRequest": {
                     "method": "PUT",
                     "header": [
@@ -565,7 +561,7 @@
                   "body": "{\n  \"error\": \"Для PUT запроса необходимо передать все поля: name, category, desc.\"\n}"
                 },
                 {
-                  "name": "Заблокировано Системой (ID 1-31)",
+                  "name": "403 Blocked (ID 1-31)",
                   "originalRequest": {
                     "method": "PUT",
                     "header": [
@@ -578,9 +574,9 @@
                         "value": "application/json"
                       },
                       {
-                        "description": "Added as a part of security scheme: bearer",
                         "key": "Authorization",
-                        "value": "Bearer <token>"
+                        "value": "Bearer <token>",
+                        "description": "Added as a part of security scheme: bearer"
                       }
                     ],
                     "body": {
@@ -605,7 +601,7 @@
                       "variable": [
                         {
                           "key": "id",
-                          "value": "9710",
+                          "value": "15",
                           "description": "ID персонажа"
                         }
                       ]
@@ -626,7 +622,7 @@
               ]
             },
             {
-              "name": "Частичное обновление сущности",
+              "name": "Partial update of an entity",
               "request": {
                 "auth": {
                   "type": "bearer",
@@ -671,7 +667,7 @@
                   "variable": [
                     {
                       "key": "id",
-                      "value": "9710",
+                      "value": "42",
                       "description": "ID персонажа"
                     }
                   ]
@@ -679,7 +675,7 @@
               },
               "response": [
                 {
-                  "name": "Успешно обновлено",
+                  "name": "200 Partial update successful",
                   "originalRequest": {
                     "method": "PATCH",
                     "header": [
@@ -688,9 +684,9 @@
                         "value": "application/json"
                       },
                       {
-                        "description": "Added as a part of security scheme: bearer",
                         "key": "Authorization",
-                        "value": "Bearer <token>"
+                        "value": "Bearer <token>",
+                        "description": "Added as a part of security scheme: bearer"
                       }
                     ],
                     "body": {
@@ -715,7 +711,7 @@
                       "variable": [
                         {
                           "key": "id",
-                          "value": "9710",
+                          "value": "42",
                           "description": "ID персонажа"
                         }
                       ]
@@ -729,7 +725,7 @@
                   "body": ""
                 },
                 {
-                  "name": "Пустое тело запроса",
+                  "name": "400 Empty request body",
                   "originalRequest": {
                     "method": "PATCH",
                     "header": [
@@ -790,7 +786,7 @@
               ]
             },
             {
-              "name": "Изгнать сущность",
+              "name": "Delete an entity",
               "request": {
                 "auth": {
                   "type": "bearer",
@@ -824,7 +820,7 @@
               },
               "response": [
                 {
-                  "name": "Удалено успешно",
+                  "name": "204 Deleted",
                   "originalRequest": {
                     "method": "DELETE",
                     "header": [
@@ -860,14 +856,14 @@
                   "body": ""
                 },
                 {
-                  "name": "Нельзя удалять системных героев",
+                  "name": "403 Protected entity cannot be deleted",
                   "originalRequest": {
                     "method": "DELETE",
                     "header": [
                       {
-                        "description": "Added as a part of security scheme: bearer",
                         "key": "Authorization",
-                        "value": "Bearer <token>"
+                        "value": "Bearer <token>",
+                        "description": "Added as a part of security scheme: bearer"
                       }
                     ],
                     "url": {
@@ -882,7 +878,7 @@
                       "variable": [
                         {
                           "key": "id",
-                          "value": "9710",
+                          "value": "25",
                           "description": "ID персонажа"
                         }
                       ]
@@ -927,7 +923,7 @@
               },
               "response": [
                 {
-                  "name": "Метод не поддерживается",
+                  "name": "Method not supported",
                   "originalRequest": {
                     "method": "POST",
                     "header": [
@@ -995,7 +991,7 @@
           ]
         },
         {
-          "name": "Получить список всех сущностей",
+          "name": "List everyone",
           "request": {
             "method": "GET",
             "header": [
@@ -1026,7 +1022,7 @@
           },
           "response": [
             {
-              "name": "Список в формате массива",
+              "name": "Array list of all entities",
               "originalRequest": {
                 "method": "GET",
                 "header": [
@@ -1070,7 +1066,7 @@
           ]
         },
         {
-          "name": "Призвать новую сущность",
+          "name": "Create a new entity",
           "request": {
             "auth": {
               "type": "bearer",
@@ -1095,7 +1091,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Посейдон\",\n  \"category\": \"gods\",\n  \"desc\": \"Бог морей и землетрясений.\",\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}",
+              "raw": "{\n  \"name\": \"En-hedu-anna\",\n  \"category\": \"heroes\",\n  \"desc\": \"Аккадская царевна и верховная жрица лунного бога Нанны в Шумерии. Её поэзия - первая известная записанная поэзия на земле.\",\n  \"img\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcKDBozR_oAxvzQz8sjLo4YYzd7S9lR4pJ9q6uiImCMYbu2R1WHNUrvMCYwtAS1OKgl-8lxdqqITIK2FjVrQ74_r3jV9GmQJoc5ylhjg&s=10\"\n}",
               "options": {
                 "raw": {
                   "headerFamily": "json",
@@ -1115,7 +1111,7 @@
           },
           "response": [
             {
-              "name": "Сущность создана",
+              "name": "201 Created",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -1128,14 +1124,14 @@
                     "value": "application/json"
                   },
                   {
-                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "value": "Bearer <token>",
+                    "description": "Added as a part of security scheme: bearer"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Посейдон\",\n  \"category\": \"gods\",\n  \"desc\": \"Бог морей и землетрясений.\",\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}",
+                  "raw": "{\n  \"name\": \"Энхедуанна\",\n  \"category\": \"heroes\",\n  \"desc\": \"Авторка первых стихов на земле.\",\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}",
                   "options": {
                     "raw": {
                       "headerFamily": "json",
@@ -1163,10 +1159,10 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n  \"name\": \"Посейдон\",\n  \"category\": \"gods\",\n  \"desc\": \"Бог морей и землетрясений.\",\n  \"id\": 42,\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}"
+              "body": "{\n  \"name\": \"Энхедуанна\",\n  \"category\": \"heroes\",\n  \"desc\": \"Аккадская царевна и верховная жрица лунного бога Нанны Шумерии. Её поэзия - первая известная записанная поэзия на земле.\",\n  \"id\": 100,\n  \"img\": \"https://kulturologia.ru/files/u18172/Enheduanna-9.jpg\"\n}"
             },
             {
-              "name": "Ошибка (не заполнены обязательные поля)",
+              "name": "400 Name or category left blank",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -1179,14 +1175,14 @@
                     "value": "application/json"
                   },
                   {
-                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "value": "Bearer <token>",
+                    "description": "Added as a part of security scheme: bearer"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Посейдон\",\n  \"category\": \"gods\",\n  \"desc\": \"Бог морей и землетрясений.\",\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}",
+                  "raw": "{\n  \"name\": \"\",\n  \"category\": \"gods\",\n  \"desc\": \"Бог морей и землетрясений.\",\n  \"img\": \"https://images.unsplash.com/photo-1503152394-c571994fd383\"\n}",
                   "options": {
                     "raw": {
                       "headerFamily": "json",
@@ -1323,6 +1319,10 @@
     {
       "key": "auth_token",
       "secret": true
+    },
+    {
+      "key": "bearerToken",
+      "value": ""
     }
   ]
 }
